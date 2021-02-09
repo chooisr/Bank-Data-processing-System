@@ -7,7 +7,7 @@ public class DataBase {
     Statement stmt = null;
     String url = "jdbc:mysql://localhost:3306/bankdb?serverTimezone=UTC";
     String user = "root";
-    String passwd = "1234";        //본인이 설정한 root 계정의 비밀번호를 입력하면 된다.
+    String passwd = "1234";
 
     DataBase() {    //데이터베이스에 연결한다.
         try {
