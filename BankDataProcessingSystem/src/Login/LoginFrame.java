@@ -99,6 +99,7 @@ public class LoginFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "아이디와 비밀번호 모두 입력해주세요", "로그인 실패", JOptionPane.ERROR_MESSAGE);
 					System.out.println("로그인 실패 : 로그인 정보 미입력");
 				}
+				
 				else if(uid != null && upwd != null) {
 					if(o.db.logincheck(uid, upwd)) {
 						System.out.println("로그인 성공");
