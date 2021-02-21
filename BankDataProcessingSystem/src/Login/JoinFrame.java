@@ -30,8 +30,6 @@ public class JoinFrame extends JFrame {
 	JButton overlapCheckBtn = new JButton("중복 확인");
 	JButton signInBtn = new JButton("회원가입");
 	
-
-	
 	LoginMain p = null;
 	public JoinFrame(LoginMain _p) {
 		p = _p;

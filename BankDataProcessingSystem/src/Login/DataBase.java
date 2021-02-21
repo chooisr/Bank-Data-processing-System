@@ -90,6 +90,5 @@ public class DataBase {
     		System.out.println("회원가입 오류 > " + e.toString());
     	}
     	
-    	
     }
 }
