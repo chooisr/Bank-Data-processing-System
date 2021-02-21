@@ -5,7 +5,7 @@ import java.sql.*;
 public class DataBase {
     Connection con = null;
     Statement stmt = null;
-    String url = "jdbc:mysql://localhost:3306/bankdb?serverTimezone=UTC";
+    String url = "jdbc:mysql://localhost:3306/bankdb?serverTimezone=Asia/Seoul";
     String user = "root";
     String passwd = "1234";
 
@@ -50,5 +50,46 @@ public class DataBase {
         }
 
         return flag;
+    }
+    
+    boolean overlapCheck(String _i){
+    	boolean flag = false;
+    	
+    	String id = _i;
+    	
+    	try {
+    		String checkingStr = "SELECT count(*) FROM user WHERE userid='" + id + "'";
+            ResultSet result = stmt.executeQuery(checkingStr);
+            
+            while(result.next()) {
+            	if(result.getInt("count(*)") == 0) {
+                	flag = true;
+                	System.out.println("로그인 사용 가능");
+                }
+            	
+                else {
+                	flag = false;
+                	System.out.println("로그인 사용 불가능");
+                }
+            }
+    	} catch(Exception e) {
+    		flag = false;
+    		System.out.println("확인 오류 > " + e.toString());
+    	}
+    	return flag;
+    }
+    
+    void addMember(String _id, String _pwd, String _pwdc, String _name, String _fn, String _ln) {
+    	String resd = _fn + "-" + _ln;
+    	
+    	try {
+    		String checkingStr = "INSERT INTO user (userid, userpw, username, userresident) VALUES( '" + _id +"', '" + _pwd +"', '" + _name + "', '" + resd + "' )";
+            stmt.executeUpdate(checkingStr);
+            System.out.println("회원가입 성공");
+    	} catch(Exception e) {
+    		System.out.println("회원가입 오류 > " + e.toString());
+    	}
+    	
+    	
     }
 }

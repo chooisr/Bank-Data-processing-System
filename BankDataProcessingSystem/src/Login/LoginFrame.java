@@ -91,7 +91,7 @@ public class LoginFrame extends JFrame {
 			}
 			
 			else if(b.getText().equals("회원가입")) {
-				
+				JoinFrame jf = new JoinFrame(o);
 			}
 			
 			else if(b.getText().equals("로그인")) {
