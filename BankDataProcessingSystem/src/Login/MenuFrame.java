@@ -79,6 +79,11 @@ public class MenuFrame extends JFrame {
 		modifyInfoBtn.setFont(new Font("µ¸¿ò", Font.PLAIN, 20));
 		modifyInfoBtn.setBounds(350, 350, 170, 55);
 		MenuPane.add(modifyInfoBtn);
+		
+		JLabel welcomLabel = new JLabel("\uB2D8 \uD658\uC601\uD569\uB2C8\uB2E4.");
+		welcomLabel.setFont(new Font("±¼¸²", Font.PLAIN, 17));
+		welcomLabel.setBounds(112, 31, 136, 34);
+		MenuPane.add(welcomLabel);
 	
 		//
 		
