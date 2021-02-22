@@ -11,10 +11,10 @@ public class LoginFrame extends JFrame {
 
 	JPanel loginPane= new JPanel();
 	
-	JLabel idLabel = new JLabel("아이디");
+	JLabel idLabel = new JLabel("아이디");//textView
 	JLabel pwdLabel = new JLabel("비밀번호");
 	
-	JTextField id = new JTextField();
+	JTextField id = new JTextField();//입력필드
 	JTextField pwd = new JTextField();
 	
 	JButton exitBtn = new JButton("종료");
@@ -31,7 +31,7 @@ public class LoginFrame extends JFrame {
 		setForeground(Color.BLACK);
 		setBackground(Color.WHITE);
 		setFont(new Font("Dialog", Font.PLAIN, 15));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//윈도우창 종료시 프로세스까지 깔끔하게 close
 		setBounds(100, 100, 480, 230);
 		
 		loginPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,6 +104,7 @@ public class LoginFrame extends JFrame {
 					if(o.db.logincheck(uid, upwd)) {
 						System.out.println("로그인 성공");
 						JOptionPane.showMessageDialog(null, "로그인에 성공하였습니다");
+						MenuFrame cf = new MenuFrame(o);
 					}
 					else {
 						System.out.println("로그인 실패 : 로그인 정보 불일치");

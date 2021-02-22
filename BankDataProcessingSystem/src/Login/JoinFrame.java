@@ -148,7 +148,7 @@ public class JoinFrame extends JFrame {
 					}
 				}
 			}
-			
+			 
 			else if(b.getText().equals("회원가입")) {
 				if(uid.equals("") || upwd.equals("") || upwdc.equals("") || uname.equals("") || ufn.equals("") || uln.equals("")) {
 					JOptionPane.showMessageDialog(null, "빈칸을 모두 입력해주세요.", "회원가입 실패", JOptionPane.ERROR_MESSAGE);
