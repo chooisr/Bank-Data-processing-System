@@ -79,12 +79,35 @@ public class DataBase {
     	return flag;
     }
     
-    void addMember(String _id, String _pwd, String _pwdc, String _name, String _fn, String _ln) {
+    void addMember(String _id, String _pwd, String _pwdc, String _name, String _fn, String _ln, String _accpwd, String _accn, String _bank) {
     	String resd = _fn + "-" + _ln;
+    	String bk = "";
+    	switch(_bank) {
+    	case "부산 은행":
+    		bk = "01";
+    		break;
+    	case "국민 은행":
+    		bk = "02";
+    		break;
+    	case "카카오 은행":
+    		bk = "03";
+    		break;
+    	case "농협 은행":
+    		bk = "04";
+    		break;
+    	case "우리 은행":
+    		bk = "05";
+    		break;
+    	}
+    	String act = bk + "-" + _accn;
+    	
+    	int _balance = 0;
     	
     	try {
     		String checkingStr = "INSERT INTO user (userid, userpw, username, userresident) VALUES( '" + _id +"', '" + _pwd +"', '" + _name + "', '" + resd + "' )";
             stmt.executeUpdate(checkingStr);
+            String checkingStr2 = "INSERT INTO passbook (userid, bankName, account, balance, accountpwd) VALUES( '" + _id +"', '" + _bank +"', '" + act + "', '" + _balance +"', '" + _accpwd + "' )";
+            stmt.executeUpdate(checkingStr2);
             System.out.println("회원가입 성공");
     	} catch(Exception e) {
     		System.out.println("회원가입 오류 > " + e.toString());

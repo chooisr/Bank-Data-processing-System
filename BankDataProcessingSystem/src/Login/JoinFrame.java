@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.text.ParseException;
+
 import javax.swing.border.EmptyBorder;
 
 public class JoinFrame extends JFrame {
@@ -17,20 +19,27 @@ public class JoinFrame extends JFrame {
 	JLabel residentLabel = new JLabel("주민번호 :");
 	JLabel hypenLabel = new JLabel("-");
 	JLabel lastNumberLabel = new JLabel("******");
+	JLabel bankLabel = new JLabel("계좌은행 :");
+	JLabel accountNumberLabel = new JLabel("계좌번호 :");
+	JLabel accountpwdLabel = new JLabel("계좌 비밀번호 :");
 	
 	JTextField id = new JTextField();
 	JTextField name = new JTextField();
+	JTextField accountNumber = new JTextField();
 
 	JPasswordField pwd = new JPasswordField();
 	JPasswordField pwdCheck = new JPasswordField();
+	JPasswordField accountpwd = new JPasswordField();
 	
 	JFormattedTextField firstNumber = new JFormattedTextField();
 	JFormattedTextField lastNumber = new JFormattedTextField();
 	
+	//firstNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("******")));
+	
+	JComboBox<?> bankbox = new JComboBox();
+	
 	JButton overlapCheckBtn = new JButton("중복 확인");
 	JButton signInBtn = new JButton("회원가입");
-	
-
 	
 	LoginMain p = null;
 	public JoinFrame(LoginMain _p) {
@@ -39,7 +48,7 @@ public class JoinFrame extends JFrame {
 		setTitle("Join in");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 638, 474);
+		setBounds(100, 100, 638, 664);
 		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -100,8 +109,32 @@ public class JoinFrame extends JFrame {
 		contentPane.add(lastNumber);
 		
 		signInBtn.setFont(new Font("굴림", Font.PLAIN, 20));
-		signInBtn.setBounds(199, 376, 222, 36);
+		signInBtn.setBounds(199, 556, 222, 36);
 		contentPane.add(signInBtn);
+		
+		bankLabel.setFont(new Font("굴림", Font.PLAIN, 25));
+		bankLabel.setBounds(72, 378, 115, 24);
+		contentPane.add(bankLabel);
+		
+		bankbox.setFont(new Font("굴림", Font.PLAIN, 20));
+		bankbox.setModel(new DefaultComboBoxModel(new String[] {"부산 은행", "국민 은행", "카카오 은행", "농협 은행", "우리 은행"}));
+		bankbox.setBounds(199, 375, 255, 36);
+		contentPane.add(bankbox);
+		
+		accountNumberLabel.setFont(new Font("굴림", Font.PLAIN, 25));
+		accountNumberLabel.setBounds(72, 444, 115, 24);
+		contentPane.add(accountNumberLabel);
+		
+		accountpwdLabel.setFont(new Font("굴림", Font.PLAIN, 25));
+		accountpwdLabel.setBounds(12, 505, 185, 24);
+		contentPane.add(accountpwdLabel);
+		
+		accountpwd.setBounds(199, 505, 255, 36);
+		contentPane.add(accountpwd);
+		
+		accountNumber.setColumns(10);
+		accountNumber.setBounds(199, 444, 255, 36);
+		contentPane.add(accountNumber);
 		
 		ButtonListener bl = new ButtonListener();
 		
@@ -112,6 +145,51 @@ public class JoinFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 	}
+	
+	/*import javax.swing.text.AttributeSet;
+	import javax.swing.text.BadLocationException;
+	import javax.swing.text.PlainDocument;
+
+	 class JTextFieldLimit extends PlainDocument {
+	   private int limit;
+	   private boolean toUppercase = false;
+
+	    JTextFieldLimit(int limit) {
+	      super();
+	      this.limit = limit;
+	   }
+
+	    JTextFieldLimit(int limit, boolean upper) {
+	      super();
+	      this.limit = limit;
+	      this.toUppercase = upper;
+	   }
+
+	 
+
+	   public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+	      if (str == null) {
+	         return;
+	      }
+
+	      if ( (getLength() + str.length()) <= limit) {
+	         if (toUppercase) {
+	            str = str.toUpperCase();
+	         }
+	         super.insertString(offset, str, attr);
+	      }
+	   }
+	}
+
+	------------------------------------------------------
+
+	 그리고 사용하고자 하는 소스에서
+
+	 JTextField jtfChat = new JTextField();
+
+	jtfChat.setDocument((new JTextFieldLimit(10)));
+
+	 이렇게 하면 10자까지밖에 입력을 못한다.*/
 	
 	class ButtonListener implements ActionListener{
 		@Override
@@ -124,9 +202,13 @@ public class JoinFrame extends JFrame {
 			String upwd = pwd.getText();
 			@SuppressWarnings("deprecation")
 			String upwdc = pwdCheck.getText();
+			@SuppressWarnings("deprecation")
+			String uaccpwd = accountpwd.getText();
 			String uname = name.getText();
 			String ufn = firstNumber.getText();
 			String uln = lastNumber.getText();
+			String uaccn = accountNumber.getText();
+			String ubank = bankbox.getSelectedItem().toString();
 			
 			
 			boolean flag = p.db.overlapCheck(uid);
@@ -148,9 +230,9 @@ public class JoinFrame extends JFrame {
 					}
 				}
 			}
-			 
+			
 			else if(b.getText().equals("회원가입")) {
-				if(uid.equals("") || upwd.equals("") || upwdc.equals("") || uname.equals("") || ufn.equals("") || uln.equals("")) {
+				if(uid.equals("") || upwd.equals("") || upwdc.equals("") || uname.equals("") || ufn.equals("") || uln.equals("") || uaccpwd.equals("") || uaccn.equals("") || ubank.equals("")) {
 					JOptionPane.showMessageDialog(null, "빈칸을 모두 입력해주세요.", "회원가입 실패", JOptionPane.ERROR_MESSAGE);
 					System.out.println("회원가입 실패 : 정보 미입력");
 				}
@@ -167,7 +249,7 @@ public class JoinFrame extends JFrame {
 					}
 					
 					else {
-						p.db.addMember(uid, upwd, upwdc, uname, ufn, uln);
+						p.db.addMember(uid, upwd, upwdc, uname, ufn, uln, uaccpwd, uaccn, ubank);
 						JOptionPane.showMessageDialog(null, "회원가입을 완료했습니다.");
 						
 						dispose();
