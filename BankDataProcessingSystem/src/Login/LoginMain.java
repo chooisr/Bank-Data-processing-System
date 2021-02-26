@@ -8,6 +8,5 @@ public class LoginMain {
         LoginMain opt = new LoginMain();
         opt.db = new DataBase();
         opt.lf = new LoginFrame(opt);
-        
     }
 }

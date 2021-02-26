@@ -6,7 +6,6 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 
-
 public class LoginFrame extends JFrame {
 
 	JPanel loginPane= new JPanel();

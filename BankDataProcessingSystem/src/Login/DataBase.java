@@ -100,7 +100,6 @@ public class DataBase {
     		break;
     	}
     	String act = bk + "-" + _accn;
-    	
     	int _balance = 0;
     	
     	try {

@@ -160,10 +160,12 @@ public class JoinFrame extends JFrame {
 		accountpwdLabel.setFont(new Font("굴림", Font.PLAIN, 25));
 		accountpwdLabel.setBounds(12, 505, 185, 24);
 		contentPane.add(accountpwdLabel);
+		accountpwd.setToolTipText("비밀번호 네자리를 입력해주세요");
 		
 		accountpwd.setBounds(199, 505, 255, 36);
 		contentPane.add(accountpwd);
 		accountpwd.setDocument((new JTextFieldLimit(4)));
+		accountNumber.setToolTipText("계좌번호 세자리를 입력해주세요");
 		
 		accountNumber.setColumns(10);
 		accountNumber.setBounds(199, 444, 255, 36);
