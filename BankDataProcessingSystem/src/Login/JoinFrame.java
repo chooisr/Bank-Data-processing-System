@@ -7,6 +7,38 @@ import java.awt.event.*;
 import java.text.ParseException;
 
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+
+class JTextFieldLimit extends PlainDocument {
+   private int limit;
+   private boolean toUppercase = false;
+   
+   JTextFieldLimit(int limit) {
+      super();
+      this.limit = limit;
+   }
+
+   JTextFieldLimit(int limit, boolean upper) {
+      super();
+      this.limit = limit;
+      this.toUppercase = upper;
+   }
+
+   public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+      if (str == null) {
+         return;
+      }
+
+      if ( (getLength() + str.length()) <= limit) {
+         if (toUppercase) {
+            str = str.toUpperCase();
+         }
+         super.insertString(offset, str, attr);
+      }
+   }
+}
 
 public class JoinFrame extends JFrame {
 
@@ -33,8 +65,6 @@ public class JoinFrame extends JFrame {
 	
 	JFormattedTextField firstNumber = new JFormattedTextField();
 	JFormattedTextField lastNumber = new JFormattedTextField();
-	
-	//firstNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("******")));
 	
 	JComboBox<?> bankbox = new JComboBox();
 	
@@ -103,10 +133,12 @@ public class JoinFrame extends JFrame {
 		firstNumber.setColumns(6);
 		firstNumber.setBounds(199, 313, 115, 36);
 		contentPane.add(firstNumber);
+		firstNumber.setDocument((new JTextFieldLimit(6)));
 		
 		lastNumber.setColumns(1);
 		lastNumber.setBounds(354, 311, 31, 36);
 		contentPane.add(lastNumber);
+		lastNumber.setDocument((new JTextFieldLimit(1)));
 		
 		signInBtn.setFont(new Font("굴림", Font.PLAIN, 20));
 		signInBtn.setBounds(199, 556, 222, 36);
@@ -131,10 +163,12 @@ public class JoinFrame extends JFrame {
 		
 		accountpwd.setBounds(199, 505, 255, 36);
 		contentPane.add(accountpwd);
+		accountpwd.setDocument((new JTextFieldLimit(4)));
 		
 		accountNumber.setColumns(10);
 		accountNumber.setBounds(199, 444, 255, 36);
 		contentPane.add(accountNumber);
+		accountNumber.setDocument((new JTextFieldLimit(3)));
 		
 		ButtonListener bl = new ButtonListener();
 		
@@ -145,51 +179,6 @@ public class JoinFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 	}
-	
-	/*import javax.swing.text.AttributeSet;
-	import javax.swing.text.BadLocationException;
-	import javax.swing.text.PlainDocument;
-
-	 class JTextFieldLimit extends PlainDocument {
-	   private int limit;
-	   private boolean toUppercase = false;
-
-	    JTextFieldLimit(int limit) {
-	      super();
-	      this.limit = limit;
-	   }
-
-	    JTextFieldLimit(int limit, boolean upper) {
-	      super();
-	      this.limit = limit;
-	      this.toUppercase = upper;
-	   }
-
-	 
-
-	   public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
-	      if (str == null) {
-	         return;
-	      }
-
-	      if ( (getLength() + str.length()) <= limit) {
-	         if (toUppercase) {
-	            str = str.toUpperCase();
-	         }
-	         super.insertString(offset, str, attr);
-	      }
-	   }
-	}
-
-	------------------------------------------------------
-
-	 그리고 사용하고자 하는 소스에서
-
-	 JTextField jtfChat = new JTextField();
-
-	jtfChat.setDocument((new JTextFieldLimit(10)));
-
-	 이렇게 하면 10자까지밖에 입력을 못한다.*/
 	
 	class ButtonListener implements ActionListener{
 		@Override
